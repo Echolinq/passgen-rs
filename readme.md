@@ -17,12 +17,16 @@ password-generator [OPTIONS] [LENGTH]
 ```
 
 Generates a random password of the specified length (default: 12) and copies it to the clipboard.
+Defaults to lowercase letters unless specified.
 
 ### Options
 
 * `-h, --help`: Prints help information.
-* `-V, --version`: Prints version information.
-* `-n, --no-clipboard`: Does not copy the generated password to the clipboard.
+* `-v, --version`: Prints version information.
+* `-u, --uppercase`: Include uppercase letters in the password 
+* `-n, --number`: Include numbers letters in the password 
+* `-s, --special`: Include special letters in the password 
+* `-c, --no-clipboard`: Does not copy the generated password to the clipboard.
 
 ## Acknowledgments
 
