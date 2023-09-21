@@ -20,8 +20,10 @@ fn main() {
                 .long("length")
                 .value_name("LENGTH")
                 .help("Sets the length of the password")
-                .required(true)
-                .takes_value(true),
+                .required(false)
+                .takes_value(true)
+                .default_value("12"),
+                
         )
         .arg(
             Arg::with_name("uppercase")
@@ -41,6 +43,12 @@ fn main() {
                 .long("special")
                 .help("Include special characters in the password"),
         )
+        .arg(
+            Arg::with_name("no clipboard")
+                .short("c")
+                .long("no-clipboard")
+                .help("do not copy password to clipboard"),
+        )
         .get_matches();
 
     // Parse command-line arguments
@@ -48,7 +56,8 @@ fn main() {
     let use_uppercase = matches.is_present("uppercase");
     let use_numbers = matches.is_present("numbers");
     let use_special = matches.is_present("special");
-
+    let no_clipboard = matches.is_present("no clipboard");
+    
     // Define character sets
     let lowercase_chars: [char; 26] = [
         'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
@@ -85,6 +94,8 @@ fn main() {
     println!("Generated Password: {}", password);
 
     // Copy the password to the clipboard
-    let mut ctx: ClipboardContext = ClipboardProvider::new().expect("Error initializing clipboard");
-    ctx.set_contents(password).expect("Error copying password to clipboard");
+    if !no_clipboard {
+        let mut ctx: ClipboardContext = ClipboardProvider::new().expect("Error initializing clipboard");
+        ctx.set_contents(password).expect("Error copying password to clipboard");
+    }
 }
